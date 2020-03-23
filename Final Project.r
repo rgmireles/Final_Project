@@ -1,8 +1,10 @@
 # FINAL PROJECT
 
 library(rcompanion)
+library(ggplot2)
 
 data <- read.csv("FullDataSetTransposed.csv")
+
 
 #DATA WRANGLING
 ## IS DATA NORMAL? IF NOT, TRANSFORM AS NEEDED. ALL DATA NEEDED TRANSFORMATION
@@ -51,4 +53,27 @@ data$ActiveWSEs <- data$ACTIVE.FULL.TIME + data$ACTIVE.PART.TIME + data$ACTIVE.3
 
 plotNormalHistogram(data$ActiveWSEs)
 #normal
+
+
+# DATA ANALYSIS: What is the annual gross profit by active worksite employee (employees the company processes payroll for 
+# outside of the internal team) and how does that compare to industry benchmarks?
+
+lin_reg <- lm(Gross.Profit ~ ActiveWSEs, data)
+print(lin_reg)
+
+summary(lin_reg)
+
+### p-value is significant at p < .05
+
+### y = mx + b
+
+x= 1000000.00
+y = .000000000000000008297 * x -.00000001344
+y
+
+## Plot with best fit line
+
+d <- ggplot(data, aes(x = ActiveWSEs, y = Gross.Profit))
+d + geom_point() + geom_smooth(method=lm, se=FALSE)
+
 
