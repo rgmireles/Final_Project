@@ -68,10 +68,11 @@ data$ActiveWSEs <- data$ACTIVE.FULL.TIME + data$ACTIVE.PART.TIME + data$ACTIVE.3
 data$AnnualGPAll <- sum(data$Gross.Profit)
 data$AvgActiveWSEs <- mean(data$ActiveWSEs)
 
-GPbyWSE <- data$AnnualGPAll/data$AvgActiveWSEs
-GPbyWSE
-BMGPbyWSE <- 1595
-gapGPbyWSE <- (BMGPbyWSE - GPbyWSE)
+GPbyWSE <- data$Gross.Profit/data$ActiveWSEs
+GPbyWSE #by month
+AnnualGPbyWSE <- sum(GPbyWSE)
+BMGPbyWSE <- 1595 #benchmark
+gapGPbyWSE <- (BMGPbyWSE - AnnualGPbyWSE)
 gapGPbyWSE
 
 #Predictions: Predict when the company will reach either revenue goals or worksite employee goals based on prior year growth trends.
@@ -95,7 +96,7 @@ summary(lin_reg)
 
 ## y = mx + b Predicting Values
 
-x= 4542 ### average number of active WSE's to predict gross profit
+x= 5000 ### average number of active WSE's to predict gross profit
 y = 76.04 * x +38470.78
 y
 y*12 #Annual gross profit at x WSE's
